@@ -1,0 +1,9 @@
+{
+  "firebase": "godwin-project",
+  "public": "public",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

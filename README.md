@@ -19,7 +19,7 @@ My project will take NEW YORK TIMES API and pass into it the current date and ma
 
 The first parameter will come from an an object of particular Holocaust and Nazi keywords with descriptions.
 
-If that search finds a result tripped, it will run a second GET Request made up of the triggering word in addition to running through the FCC API of Federal Elected Officials.
+If that search finds a result tripped, it will run a second GET Request made up of the triggering word in addition to running through the FEC API of Federal Elected Officials.
 
 The reason for the first step is to limit the number of required calls. The NYTIMES API limits calls to 5000 a day.
 
