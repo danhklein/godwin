@@ -7,16 +7,17 @@ $(document).on('ready', function() {
 
 
 //********NAZI VARIABLES***************\\
-
+var nytDateFilter = '';
 
 var goebbels = new Nazi ('Joseph', 'Goebbels', 'Minister of Propaganda');
-var hitler = new Nazi ('Adolph', 'Hitler', 'Dictator of Germany');
+var hitler = new Nazi ('Adolf', 'Hitler', 'Dictator of Germany');
 var himmler = new Nazi ('Heinrich', 'Himmler', 'Architect of Holocaust');
 //Place people/events/places in this array. Eventually should populate automatically via constructor.
 
 var naziArr = [goebbels, hitler, himmler];
-
-
+var test = "";
+console.log (test)
+// var nytDateFilter = "";
 //**********HELPER FUNCTIONS********\\
 //Finds the current date and converts it into a string that is takable by the NYT Search API
 function findDate() {
@@ -25,7 +26,10 @@ var currentDay = date.getDate();
 var currentMonth = date.getMonth() + 1;
 var currentYear = date.getFullYear();
 var totalDate = currentYear.toString() + currentMonth.toString() + currentDay.toString();
+
+nytDateFilter = '&begin_date=' + totalDate;
 }
+
 
   //*******Creates Nazi or related term;
   function Nazi (firstName, lastName, naziBio) {
@@ -50,10 +54,15 @@ this.naziKeyWord = lastName
     this.placeDesc = placeDesc;
   }
   //*********CREATE PRIMARY NYT SEARCH URL*****\\\\
-  var nytUrl1 = nytLink + nytQuery1 + nytDeskFilter + nytDateFilter + nytAPIKey;
+  // var nytUrl1 = nytLink + nytQuery1 + nytDeskFilter + nytDateFilter + nytAPIKey;
   var nytLink = "http://api.nytimes.com/svc/search/v2/articlesearch.json?"
-  var nytQuery1;
+  //**************Set Filters ********\\\
+  var nytQuery1 = "q=" + naziArr.forEach(function(e, index) {
+    return naziArr[index];
+  });
+
   var nytDeskFilter = '&fq=news_desk:("Politics")';
-  var nytDateFilter = '&begin_date=' + totalDate;
+  findDate();
+
 
 });
