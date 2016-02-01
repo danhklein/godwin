@@ -2,6 +2,19 @@
 
 $(document).on('ready', function() {
   console.log('sanity check!');
+
+
+  $.get("http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?callback=svc_search_v2_articlesearch&api-key=534e57e32a30382b3b6da874e8f42d3a%3A5%3A71918911")
+  .done(function(data){
+    console.log('test')
+    console.log(data);
+  })
+  .fail(function(err){
+    console.log(err)
+  })
+  .always(function(data){
+    console.log((data.responseText));
+  })
 //****************GLOBAL VARIABLES****************\\
 var counter = 0;
 
@@ -49,6 +62,7 @@ var counter = 0;
    //**************Set Filters ********\\\
   var nytLink = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q="
   //Set Desk Filter
+
   var nytDeskFilter = '&fq=news_desk:("Politics")';
   //Find Date
   var date = new Date();
@@ -61,20 +75,32 @@ var counter = 0;
   var naziKeyarr = naziArr.naziKeyWord;
 
 naziArr.map(function(naziKey) { $.ajax({
-  url: nytLink + naziKey['naziKeyWord'] + nytDeskFilter + nytDateFilter + nytAPIKey,
+  url: "http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?callback=svc_search_v2_articlesearch&api-key=534e57e32a30382b3b6da874e8f42d3a%3A5%3A71918911",
   method: "GET",
-    success: function(date) {
-      //If the keyword finds a NYT hit. Reset the counter. If the document isn't the same as another in the naziHit array add that document to Nazi Hit
-        if (data["response"]["meta"]["hits"] > 0)  {
-         naziHit.push(data["response"]["docs"])
-         counter = 0;
-        }
+    success: function(data) {
+      //IF the keyword finds a NYT hit. Reset the counter. AND IF the document isn't the same as another in the naziHit array add that document to Nazi Hit
+        var hits = data["response"]["meta"]["hits"];
+        var articles = data["response"]["docs"]
+        // for (var i = 0; i<naziHit.length;i++){
+        //   if (articles[i[(naziHit[i])=== -1) {
+        //     naziHit.push(articles[i])
+        //   }
+        for (var i = 0; i<articles.length; i++) {
+            if (( hits > 0) && (articles[i].toJSON() !== naziHit[i].toJSON())) {
+              naziHit.push(articles[i])
+              counter = 0;
+          }
         else {
           counter++;
+          }
         }
       }
     });
   });
+        //Preliminary search has create an array of news article (naziHits )objects from the NYT politics section.
+  var artLink = naziHit[i]["web_url"];
+  var artAbstract = naziHit[i]["abstract"];
+  var artHeadline = naziHit[i]["headline"]["main"];
 });
 
 //Preliminary Search
