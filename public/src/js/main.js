@@ -1,4 +1,8 @@
-// add scripts
+// NOTES:
+
+//MAPPING NAZIARRAY IS NOT CURRENTLY WORKING, ONLY MAPS THE FIRST ITEM IN INDEX
+
+
 
 $(document).on('ready', function() {
   console.log('sanity check!');
@@ -111,13 +115,23 @@ window.svc_search_v2_articlesearch = function (data) {
 
 function godwinPopulate (naziHit) {
   var recentHit = naziHit[0];
-  var artLink = recentHit["web_url"];
+    var artLink = recentHit["web_url"];
+
   var artAbstract = recentHit["abstract"];
   var artHeadline = recentHit["headline"]["main"];
+
+  var prevHit = naziHit [1];
+  var prevArtLink =prevHit["web_url"];
+  var prevArtAbstract = prevHit["abstract"];
+  var prevArtHeadline = prevHit["headline"]["main"];
+
+
   $('#nytHeadline').html('<a href="' + artLink +'">' +artHeadline +'</a>');
   $('#nytText').html(artAbstract);
   $('#naziCited').html(himmler.nazi);
   $('#naziDesc').html(himmler.naziBio);
+  $('#prevnytText').html(prevArtAbstract);
+  $('#prevnytHeadline').html('<a href="' + prevArtLink +'">' + prevArtHeadline +'</a>')
 }
 });
 
