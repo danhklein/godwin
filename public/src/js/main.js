@@ -67,10 +67,6 @@
   var naziKeyarr = naziArr.naziKeyWord;
   var testDate = "&begin_date=20150101";
 
-
-
-
-
       var naziHit = [];
 
   // function naziHunter (articles) {
@@ -105,47 +101,46 @@
     })
     .done(function(data){
       var naziHit = data.response.docs
-      arr = arr.concat(naziHit)
+      arr = naziHit;
+      // arr = arr.concat(naziHit)
       getNewest(arr);
-      godwinPopulate(arr);
 
+     godwinPopulate(arr);
+     console.log(arr)
   });
   }
-
-  // function makeAjax2(url, naziHit) {
-  //   $.ajax({
-  //     url: url,
-  //     method: "GET",
-  //     dataType: 'jsonp',
-  //     jsonpCallback: 'svc_search_v2_articlesearch'
-  //   })
-  //   .done(function(data){
-  //     var naziHit2 = data.response.docs;
-  //     var naziHitresult = naziHit.concat(naziHit2);
-  //     console.log(naziHit3);
-
-      // godwinPopulate(naziHit);
-
-
+function unique (arr){
+  for (var i=0; i <arr.length; i++) {
+    for (var j=0; j<arr.length;j++) {
+      if (arr[i].pub_date === arr[j].pub_date && i !== j)
+        {arr.splice(j, 1)}
+    }
+  }
+}
 
    var url1 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Holocaust&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783703';
     var url2 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Hitler&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
     var url3 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=nazi&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
-  // var naziHit = [];
 
-makeAjax(url1)
-makeAjax(url2)
+
+// makeAjax(url1)
+// makeAjax(url2)
 makeAjax(url3)
 
 
 
+
+
 function godwinPopulate (arr) {
+
   for (var i=0; i < arr.length; i++ ) {
+
     var article = arr[i];
     var artLink = article["web_url"];
     var artAbstract = ("<p id='nytText'>" + article['snippet'] + "</p>");
     var artHeadline = "<h4 class='text-center' id='nytHeadline'><a href=" + artLink + ">" + article["headline"]["main"] + "</a></h4>";
     var artPubDate = '<p id="pub_date" class="text-center">'+ article["pub_date"].substring(0,10) + '</p>';
+    console.log(artLink);
     var $fullset= $(
           "<div class='col-xs-12 col-sm-6 col-md-3'>" +
             "<div class='thumbnail'>" +
@@ -154,19 +149,21 @@ function godwinPopulate (arr) {
                   "<p class='text-center' id='pols'>" +
                     "<a href='plaid.com'>Plaid, Joey; </a>" + "<a href='Spotty.com'>Spotty, Eric.</a>" + "</p></div>" +"</div></div>");
     $('#first').append($fullset);
-      if (i%4===0) {
-        $('#first').append('</div><div class="row">')
-    }
   }
 }
 
 function getNewest (arr) {
-    var newest = 1900;
+    var newest = new Object();
+    newest.pub_date = '1900';
     for (var i = 0; i < arr.length; i++) {
-        if(arr[i].pub_date < newest.pub_date) {
-            newest = arrayOfObjects[i];
+        if(arr[i].pub_date > newest.pub_date) {
+            newest = arr[i];
         }
+
     };
+    arr[0] = newest;
+    console.log(newest);
+
 }
 
 
