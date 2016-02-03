@@ -138,7 +138,7 @@ function godwinPopulate (arr) {
     var article = arr[i];
     var artLink = article["web_url"];
     var artAbstract = ("<p id='nytText'>" + article['snippet'] + "</p>");
-    var artHeadline = "<h4 class='text-center' id='nytHeadline'><a href=" + artLink + ">" + article["headline"]["main"] + "</a></h4>";
+    var artHeadline = "<h4 class='text-center' id='nytHeadline'><a href='" + artLink + "''>" + article["headline"]["main"] + "</a></h4>";
     var artPubDate = '<p id="pub_date" class="text-center">'+ article["pub_date"].substring(0,10) + '</p>';
     console.log(artLink);
     var $fullset= $(
