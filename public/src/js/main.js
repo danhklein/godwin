@@ -13,7 +13,7 @@
   //********NAZI VARIABLES***************\\
 
   var goebbels = new Nazi ('Joseph', 'Goebbels', 'Minister of Propaganda');
-  var hitler = new Nazi ('Adolf', 'Hitler', 'Dictator of Germany');
+  var hitler = new Nazi ('Adolf', 'Hitler', 'Adolf Hitler (20 April 1889 – 30 April 1945) was an Austrian-born German politician who was the leader of the Nazi Party (NSDAP), Chancellor of Germany from 1933 to 1945, and Führer ("leader") of Nazi Germany from 1934 to 1945. He was effectively dictator of Nazi Germany, and was a central figure of World War II in Europe and the Holocaust.');
   var himmler = new Nazi ('Heinrich', 'Himmler', 'Architect of Holocaust');
   var eichmann = new Nazi ('Adolf', 'Eichmann', 'Organized deporation of Jewish peoples to Ghettos.')
   var holocaust = new eventNazi ('Holocaust', 'The mass genocide of approximately six million Jews during the Nazi regime.')
@@ -29,10 +29,11 @@
 
 
   //*******Creates Nazi or related term***//
-  function Nazi (firstName, lastName, naziBio) {
+  function Nazi (firstName, lastName, img, naziBio) {
     this.nazi = firstName + " " + lastName;
     this.firstName = firstName;
     this.lastName = lastName;
+    this.img = img;
     //Possibly pull Bio from wikipedia as stretch
     this.naziBio = naziBio;
     this.naziKeyWord = lastName;
@@ -69,27 +70,6 @@
 
       var naziHit = [];
 
-  // function naziHunter (articles) {
-  //   for (var i = 0; i<articles.length; i++) {
-  //     if (( articles.length > 0)
-  //       // && (articles[i].toJSON() !== naziHit[i].toJSON())
-  //       ) {
-  //       // console.log(hits);
-  //         naziHit.push(articles[i]);
-  //         counter = 0;
-  //         // naziHit = naziHit.concat(naziHit);
-  //     }
-  //     else {
-  //     counter++;
-  //     }
-  //   }
-  //   return naziHit;
-  // }
-// Sets ajax call to go out once a day.
-// var interval = 1000 * 60 * 1440; //1440 is minutes in a day
-// setInterval(prime_call, interval);
-// var prime_call = function () {
-
   window.svc_search_v2_articlesearch = function (data) {}
 
   function makeAjax(url) {
@@ -123,18 +103,28 @@ function unique (arr){
     var url3 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=nazi&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
 
 
-// makeAjax(url1)
-// makeAjax(url2)
-makeAjax(url3)
+$(document).ready( function() {
+$('#naziButton').on('click', function ()
+  { $("#first").empty();
+    makeAjax(url3);
+    // $('#topic').htmlString(Nazis);
 
+  });
+$('#hitlerButton').on('click', function ()
+  { $("#first").empty();
+    makeAjax(url2);
+    // $('#topic').htmlString(Hitler);
+  });
+$('#holocaustButton').on('click', function ()
+  { $("#first").empty();
+    makeAjax(url1);
+   // $('#topic').htmlString(Adolf Hitler);
+  });
 
-
-
+});
 
 function godwinPopulate (arr) {
-
-  for (var i=0; i < arr.length; i++ ) {
-
+   for (var i=0; i < arr.length; i++ ) {
     var article = arr[i];
     var artLink = article["web_url"];
     var artAbstract = ("<p id='nytText'>" + article['snippet'] + "</p>");
@@ -142,7 +132,7 @@ function godwinPopulate (arr) {
     var artPubDate = '<p id="pub_date" class="text-center">'+ article["pub_date"].substring(0,10) + '</p>';
     console.log(artLink);
     var $fullset= $(
-          "<div class='col-xs-12 col-sm-6 col-md-3'>" +
+          "<div class='col-xs-12 col-sm-6 col-md-3' style='height: 500px'>" +
             "<div class='thumbnail'>" +
               "<img id='target' src='http://placehold.it/600x270' alt=''>" +
                 "<div class='caption'>" + artHeadline + artPubDate + artAbstract +
