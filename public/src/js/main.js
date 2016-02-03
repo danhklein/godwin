@@ -13,14 +13,16 @@
   //********NAZI VARIABLES***************\\
 
   var goebbels = new Nazi ('Joseph', 'Goebbels', 'Minister of Propaganda');
-  var hitler = new Nazi ('Adolf', 'Hitler', 'Adolf Hitler (20 April 1889 – 30 April 1945) was an Austrian-born German politician who was the leader of the Nazi Party (NSDAP), Chancellor of Germany from 1933 to 1945, and Führer ("leader") of Nazi Germany from 1934 to 1945. He was effectively dictator of Nazi Germany, and was a central figure of World War II in Europe and the Holocaust.');
+  var hitler = new Nazi ('Adolf', 'Hitler', null, 'Adolf Hitler was an Austrian-born German politician who was the leader of the Nazi Party (NSDAP), Chancellor of Germany from 1933 to 1945, and Führer ("leader") of Nazi Germany from 1934 to 1945. He was effectively dictator of Nazi Germany, and was a central figure of World War II in Europe and the Holocaust.');
   var himmler = new Nazi ('Heinrich', 'Himmler', 'Architect of Holocaust');
   var eichmann = new Nazi ('Adolf', 'Eichmann', 'Organized deporation of Jewish peoples to Ghettos.')
-  var holocaust = new eventNazi ('Holocaust', 'The mass genocide of approximately six million Jews during the Nazi regime.')
+  var holocaust = new eventNazi ('Holocaust', 'The Holocaust, also known as the Shoah, was a genocide in which approximately six million Jews were killed by Adolf Hitler\'s Nazi regime and its collaborators. Some historians use a definition of the Holocaust that includes the additional five million non-Jewish victims of Nazi mass murders, bringing the total to approximately eleven million. Killings took place throughout Nazi Germany and German-occupied territories.')
   var auschiwitz = new placeNazi ('Auschiwitz', 'A Nazi concentration camp located in Poland where 1.1 million prisoners were killed.')
   //Place people/events/places in this array. Eventually should populate automatically via constructor.
+  var nazi = new eventNazi ('Nazi', 'National Socialism, more commonly known as Nazism, is the ideology and practice associated with the 20th-century German Nazi Party and Nazi state as well as other far-right groups. Usually characterized as a form of fascism that incorporates scientific racism and antisemitism, Nazism developed out of the influences of Pan-Germanism, the Völkisch German nationalist movement, and the anti-communist Freikorps paramilitary groups that emerged during the Weimar Republic after German defeat in World War I.')
 
   var naziArr = [holocaust, hitler];
+  console.log(hitler);
 
 
 
@@ -86,7 +88,7 @@
       getNewest(arr);
 
      godwinPopulate(arr);
-     console.log(arr)
+
   });
   }
 function unique (arr){
@@ -107,24 +109,28 @@ $(document).ready( function() {
 $('#naziButton').on('click', function ()
   { $("#first").empty();
     makeAjax(url3);
-    // $('#topic').htmlString(Nazis);
+    $('#topic').text('Nazis');
+    $('#intro').text(nazi.eventDesc)
 
   });
 $('#hitlerButton').on('click', function ()
   { $("#first").empty();
     makeAjax(url2);
-    // $('#topic').htmlString(Hitler);
+    $('#topic').text('Adolf Hitler');
+    $('#intro').text(hitler.naziBio);
   });
 $('#holocaustButton').on('click', function ()
   { $("#first").empty();
     makeAjax(url1);
-   // $('#topic').htmlString(Adolf Hitler);
+   $('#topic').text('Holocaust');
+   $('#intro').text(holocaust.eventDesc)
   });
 
 });
 
 function godwinPopulate (arr) {
-   for (var i=0; i < arr.length; i++ ) {
+recentPop(arr);
+   for (var i=1; i < arr.length; i++ ) {
     var article = arr[i];
     var artLink = article["web_url"];
     var artAbstract = ("<p id='nytText'>" + article['snippet'] + "</p>");
@@ -156,6 +162,23 @@ function getNewest (arr) {
 
 }
 
+function recentPop(arr) {
+    var article = arr[0];
+    var artLink = article["web_url"];
+    var artAbstract = ("<p id='nytText'>" + article['snippet'] + "</p>");
+    var artHeadline = "<h4 class='text-center' id='nytHeadline'><a href='" + artLink + "''>" + article["headline"]["main"] + "</a></h4>";
+    var artPubDate = '<p id="pub_date" class="text-center">'+ article["pub_date"].substring(0,10) + '</p>';
+    console.log(artLink);
+    var $recent= $(
+          "<div class='col-xs-12 col-sm-6 col-md-3' style='height: 500px'>" +
+            "<div class='thumbnail' style='border: 1px solid red'>" +
+              "<h4 class='text-center' style='color:red'>Most Recent</h4>"+
+              "<img id='target' src='http://placehold.it/600x270' alt=''>" +
+                "<div class='caption'>" + artHeadline + artPubDate + artAbstract +
+                  "<p class='text-center' id='pols'>" +
+                    "<a href='plaid.com'>Plaid, Joey; </a>" + "<a href='Spotty.com'>Spotty, Eric.</a>" + "</p></div>" +"</div></div>");
+    $('#first').append($recent);
+  }
 
 
 //Preliminary Search
