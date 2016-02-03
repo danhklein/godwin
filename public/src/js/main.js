@@ -6,12 +6,14 @@
 
 
   //****************GLOBAL VARIABLES****************\\
-  var counter = 0;
+
   var arr = [];
+  var url1 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Holocaust&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783703';
+  var url2 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Hitler&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
+  var url3 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=nazi&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
 
 
   //********NAZI VARIABLES***************\\
-
   var goebbels = new Nazi ('Joseph', 'Goebbels', 'Minister of Propaganda');
   var hitler = new Nazi ('Adolf', 'Hitler', null, 'Adolf Hitler was an Austrian-born German politician who was the leader of the Nazi Party (NSDAP), Chancellor of Germany from 1933 to 1945, and Führer ("leader") of Nazi Germany from 1934 to 1945. He was effectively dictator of Nazi Germany, and was a central figure of World War II in Europe and the Holocaust.');
   var himmler = new Nazi ('Heinrich', 'Himmler', 'Architect of Holocaust');
@@ -21,14 +23,9 @@
   //Place people/events/places in this array. Eventually should populate automatically via constructor.
   var nazi = new eventNazi ('Nazi', 'National Socialism, more commonly known as Nazism, is the ideology and practice associated with the 20th-century German Nazi Party and Nazi state as well as other far-right groups. Usually characterized as a form of fascism that incorporates scientific racism and antisemitism, Nazism developed out of the influences of Pan-Germanism, the Völkisch German nationalist movement, and the anti-communist Freikorps paramilitary groups that emerged during the Weimar Republic after German defeat in World War I.')
 
-  var naziArr = [holocaust, hitler];
-  console.log(hitler);
-
-
 
 //**********HELPER FUNCTIONS********\\
 //Finds the current date and converts it into a string that is takable by the NYT Search API
-
 
   //*******Creates Nazi or related term***//
   function Nazi (firstName, lastName, img, naziBio) {
@@ -54,21 +51,48 @@
     this.naziKeyWord = place;
   }
 
-   //**************Set Filters ********\\\
-  var nytLink = "http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q="
-  //Set Desk Filter
-  var nytCallback = "&callback=svc_search_v2_articlesearch"
-  var nytDeskFilter = '&fq=news_desk:("Politics")';
-  //Find Date
+  //  //**************Set Filters ********\\\
+  // var nytLink = "http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q="
+  // //Set Desk Filter
+  // var nytCallback = "&callback=svc_search_v2_articlesearch"
+  // var nytDeskFilter = '&fq=news_desk:("Politics")';
+  // //Find Date
+  // var nytAPIKey = "&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911";
+  // var naziKeyarr = naziArr.naziKeyWord;
+
   var date = new Date();
   var currentDay = date.getDate();
-  var currentMonth = date.getMonth() + 1;
+  var currentMonth = date.getMonth();
   var currentYear = date.getFullYear();
-  var totalDate = currentYear.toString() + "0"+ currentMonth.toString() + "0" +currentDay.toString();
-  var nytDateFilter = '&begin_date=' + totalDate;
-  var nytAPIKey = "&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911";
-  var naziKeyarr = naziArr.naziKeyWord;
-  var testDate = "&begin_date=20150101";
+  // var recentDay, recentMonth, recentYear;
+
+  // var totalDate = currentYear.toString() + "0"+ currentMonth.toString() + "0" +currentDay.toString();
+  // var nytDateFilter = '&begin_date=' + totalDate;
+
+  // var testDate = "&begin_date=20150101";
+
+
+function DaysSinceHit (arr){
+  var oneDay = 24*60*60*1000; // hours*minutes*seconds*millisecondsvar date = new Date();
+  var currentDay = date.getDate();
+  var currentMonth = date.getMonth();
+  var currentYear = date.getFullYear();
+  var recentDay, recentMonth, recentYear;
+  recentYear = parseInt(arr[0].pub_date.substring(0,4));
+  recentMonth = parseInt(arr[0].pub_date.substring(5,7))-1;
+  recentDay = parseInt(arr[0].pub_date.substring(8,10));
+
+  var firstDate = new Date(recentYear,recentMonth,recentDay);
+  var secondDate = new Date(currentYear,currentMonth,currentDay);
+
+  var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+  console.log('RecentDate: ',firstDate);
+  console.log(diffDays);
+  $('#counter').text(diffDays);
+  if (diffDays === 0) {
+    $('#counter').css('color', 'red')
+  }
+}
 
       var naziHit = [];
 
@@ -86,11 +110,10 @@
       arr = naziHit;
       // arr = arr.concat(naziHit)
       getNewest(arr);
-
-     godwinPopulate(arr);
-
+      DaysSinceHit(arr);
+      godwinPopulate(arr);
   });
-  }
+}
 function unique (arr){
   for (var i=0; i <arr.length; i++) {
     for (var j=0; j<arr.length;j++) {
@@ -100,17 +123,13 @@ function unique (arr){
   }
 }
 
-   var url1 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Holocaust&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783703';
-    var url2 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Hitler&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
-    var url3 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=nazi&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
-
-
 $(document).ready( function() {
 $('#naziButton').on('click', function ()
   { $("#first").empty();
     makeAjax(url3);
     $('#topic').text('Nazis');
-    $('#intro').text(nazi.eventDesc)
+    $('#intro').text(nazi.eventDesc);
+    console.log('buttontest', diffDays)
 
   });
 $('#hitlerButton').on('click', function ()
@@ -136,11 +155,12 @@ recentPop(arr);
     var artAbstract = ("<p id='nytText'>" + article['snippet'] + "</p>");
     var artHeadline = "<h4 class='text-center' id='nytHeadline'><a href='" + artLink + "''>" + article["headline"]["main"] + "</a></h4>";
     var artPubDate = '<p id="pub_date" class="text-center">'+ article["pub_date"].substring(0,10) + '</p>';
-    console.log(artLink);
+    var artimg = "<img src='http://static01.nyt.com/" + article["multimedia"][0]["url"] + "' alt='article image' height='270px' width='600px'>";
     var $fullset= $(
           "<div class='col-xs-12 col-sm-6 col-md-3' style='height: 500px'>" +
             "<div class='thumbnail'>" +
-              "<img id='target' src='http://placehold.it/600x270' alt=''>" +
+              // "<img id='target' src='http://placehold.it/600x270' alt=''>" +
+              artimg +
                 "<div class='caption'>" + artHeadline + artPubDate + artAbstract +
                   "<p class='text-center' id='pols'>" +
                     "<a href='plaid.com'>Plaid, Joey; </a>" + "<a href='Spotty.com'>Spotty, Eric.</a>" + "</p></div>" +"</div></div>");
@@ -155,11 +175,16 @@ function getNewest (arr) {
         if(arr[i].pub_date > newest.pub_date) {
             newest = arr[i];
         }
-
     };
     arr[0] = newest;
-    console.log(newest);
+    console.log(newest.pub_date);
 
+     // recentYear = parseInt(arr[0].pub_date.substring(0,4))
+     // recentMonth = parseInt(arr[0].pub_date.substring(5,7))
+     // recentDay = parseInt(arr[0].pub_date.substring(8,10))
+     // console.log(recentYear);
+     //  console.log(recentMonth);
+     //  console.log(recentDay);
 }
 
 function recentPop(arr) {
@@ -168,12 +193,13 @@ function recentPop(arr) {
     var artAbstract = ("<p id='nytText'>" + article['snippet'] + "</p>");
     var artHeadline = "<h4 class='text-center' id='nytHeadline'><a href='" + artLink + "''>" + article["headline"]["main"] + "</a></h4>";
     var artPubDate = '<p id="pub_date" class="text-center">'+ article["pub_date"].substring(0,10) + '</p>';
-    console.log(artLink);
+    var artimg = "<img src='http://static01.nyt.com/" + article["multimedia"][0]["url"] + "' alt='article image' height='270px' width='600px'>";
+
     var $recent= $(
           "<div class='col-xs-12 col-sm-6 col-md-3' style='height: 500px'>" +
             "<div class='thumbnail' style='border: 1px solid red'>" +
               "<h4 class='text-center' style='color:red'>Most Recent</h4>"+
-              "<img id='target' src='http://placehold.it/600x270' alt=''>" +
+              artimg +
                 "<div class='caption'>" + artHeadline + artPubDate + artAbstract +
                   "<p class='text-center' id='pols'>" +
                     "<a href='plaid.com'>Plaid, Joey; </a>" + "<a href='Spotty.com'>Spotty, Eric.</a>" + "</p></div>" +"</div></div>");
