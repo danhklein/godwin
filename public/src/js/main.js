@@ -5,15 +5,12 @@
 
 
 
-$(document).on('ready', function() {
-  console.log('sanity check!');
-
-//****************GLOBAL VARIABLES****************\\
-var counter = 0;
+  //****************GLOBAL VARIABLES****************\\
+  var counter = 0;
+  var arr = [];
 
 
-//********NAZI VARIABLES***************\\
-  var naziHit = [];
+  //********NAZI VARIABLES***************\\
 
   var goebbels = new Nazi ('Joseph', 'Goebbels', 'Minister of Propaganda');
   var hitler = new Nazi ('Adolf', 'Hitler', 'Dictator of Germany');
@@ -23,7 +20,8 @@ var counter = 0;
   var auschiwitz = new placeNazi ('Auschiwitz', 'A Nazi concentration camp located in Poland where 1.1 million prisoners were killed.')
   //Place people/events/places in this array. Eventually should populate automatically via constructor.
 
-  var naziArr = [ holocaust];
+  var naziArr = [holocaust, hitler];
+
 
 
 //**********HELPER FUNCTIONS********\\
@@ -67,74 +65,110 @@ var counter = 0;
   var nytDateFilter = '&begin_date=' + totalDate;
   var nytAPIKey = "&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911";
   var naziKeyarr = naziArr.naziKeyWord;
-  var testDate = "&begin_date=20130101";
+  var testDate = "&begin_date=20150101";
 
 
-window.svc_search_v2_articlesearch = function (data) {
 
-  var hits = data["response"]["meta"]["hits"];
 
-  var articles = data["response"]["docs"];
-  naziHunter(hits, articles);
-  console.log(hits)
-  godwinPopulate(naziHit);
-  console.log(naziHit);
 
-}
+      var naziHit = [];
 
-  function naziHunter (hits, articles) {
-    for (var i = 0; i<articles.length; i++) {
-      if (( hits > 0)
-        // && (articles[i].toJSON() !== naziHit[i].toJSON())
-        ) {
-          naziHit.push(articles[i])
-          counter = 0;
-      }
-      else {
-      counter++;
-      }
-    }
-  }
+  // function naziHunter (articles) {
+  //   for (var i = 0; i<articles.length; i++) {
+  //     if (( articles.length > 0)
+  //       // && (articles[i].toJSON() !== naziHit[i].toJSON())
+  //       ) {
+  //       // console.log(hits);
+  //         naziHit.push(articles[i]);
+  //         counter = 0;
+  //         // naziHit = naziHit.concat(naziHit);
+  //     }
+  //     else {
+  //     counter++;
+  //     }
+  //   }
+  //   return naziHit;
+  // }
 // Sets ajax call to go out once a day.
 // var interval = 1000 * 60 * 1440; //1440 is minutes in a day
 // setInterval(prime_call, interval);
 // var prime_call = function () {
-  naziArr.map(function(naziKey) {
-    var url = nytLink + naziKey['naziKeyWord'] + nytCallback + nytDeskFilter + testDate +nytAPIKey;
-    console.log(url, naziKey['naziKeyWord'])
 
+  window.svc_search_v2_articlesearch = function (data) {}
+
+  function makeAjax(url) {
     $.ajax({
       url: url,
       method: "GET",
       dataType: 'jsonp',
-      jsonpCallback: 'svc_search_v2_articlesearch',
+      jsonpCallback: 'svc_search_v2_articlesearch'
+    })
+    .done(function(data){
+      var naziHit = data.response.docs
+      arr = arr.concat(naziHit)
+      getNewest(arr);
+      godwinPopulate(arr);
 
-        });
-    });
+  });
+  }
 
-        //Preliminary search has create an array of news article (naziHits )objects from the NYT politics section.
+  // function makeAjax2(url, naziHit) {
+  //   $.ajax({
+  //     url: url,
+  //     method: "GET",
+  //     dataType: 'jsonp',
+  //     jsonpCallback: 'svc_search_v2_articlesearch'
+  //   })
+  //   .done(function(data){
+  //     var naziHit2 = data.response.docs;
+  //     var naziHitresult = naziHit.concat(naziHit2);
+  //     console.log(naziHit3);
 
-function godwinPopulate (naziHit) {
-  var recentHit = naziHit[0];
-    var artLink = recentHit["web_url"];
-
-  var artAbstract = recentHit["abstract"];
-  var artHeadline = recentHit["headline"]["main"];
-
-  var prevHit = naziHit [1];
-  var prevArtLink =prevHit["web_url"];
-  var prevArtAbstract = prevHit["abstract"];
-  var prevArtHeadline = prevHit["headline"]["main"];
+      // godwinPopulate(naziHit);
 
 
-  $('#nytHeadline').html('<a href="' + artLink +'">' +artHeadline +'</a>');
-  $('#nytText').html(artAbstract);
-  $('#naziCited').html(himmler.nazi);
-  $('#naziDesc').html(himmler.naziBio);
-  $('#prevnytText').html(prevArtAbstract);
-  $('#prevnytHeadline').html('<a href="' + prevArtLink +'">' + prevArtHeadline +'</a>')
+
+   var url1 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Holocaust&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783703';
+    var url2 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Hitler&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
+    var url3 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=nazi&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
+  // var naziHit = [];
+
+makeAjax(url1)
+makeAjax(url2)
+makeAjax(url3)
+
+
+
+function godwinPopulate (arr) {
+  for (var i=0; i < arr.length; i++ ) {
+    var article = arr[i];
+    var artLink = article["web_url"];
+    var artAbstract = ("<p id='nytText'>" + article['snippet'] + "</p>");
+    var artHeadline = "<h4 class='text-center' id='nytHeadline'><a href=" + artLink + ">" + article["headline"]["main"] + "</a></h4>";
+    var artPubDate = '<p id="pub_date" class="text-center">'+ article["pub_date"].substring(0,10) + '</p>';
+    var $fullset= $(
+          "<div class='col-xs-12 col-sm-6 col-md-3'>" +
+            "<div class='thumbnail'>" +
+              "<img id='target' src='http://placehold.it/600x270' alt=''>" +
+                "<div class='caption'>" + artHeadline + artPubDate + artAbstract +
+                  "<p class='text-center' id='pols'>" +
+                    "<a href='plaid.com'>Plaid, Joey; </a>" + "<a href='Spotty.com'>Spotty, Eric.</a>" + "</p></div>" +"</div></div>");
+    $('#first').append($fullset);
+      if (i%4===0) {
+        $('#first').append('</div><div class="row">')
+    }
+  }
 }
-});
+
+function getNewest (arr) {
+    var newest = 1900;
+    for (var i = 0; i < arr.length; i++) {
+        if(arr[i].pub_date < newest.pub_date) {
+            newest = arrayOfObjects[i];
+        }
+    };
+}
+
 
 
 //Preliminary Search
