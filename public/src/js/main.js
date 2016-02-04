@@ -8,9 +8,9 @@
   //****************GLOBAL VARIABLES****************\\
 
   var arr = [];
-  var url1 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Holocaust&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783703';
-  var url2 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Hitler&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
-  var url3 = 'http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=nazi&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
+  var url1 = '//api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Holocaust&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783703';
+  var url2 = '//api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=Hitler&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
+  var url3 = '//api.nytimes.com/svc/search/v2/articlesearch.jsonp?q=nazi&callback=svc_search_v2_articlesearch&fq=news_desk:(%22Politics%22)&begin_date=20150101&api-key=534e57e32a30382b3b6da874e8f42d3a:5:71918911&callback=svc_search_v2_articlesearch&_=1454438783704';
 
 
   //********NAZI VARIABLES***************\\
@@ -155,7 +155,7 @@ recentPop(arr);
     var artAbstract = ("<p id='nytText'>" + article['snippet'] + "</p>");
     var artHeadline = "<h4 class='text-center' id='nytHeadline'><a href='" + artLink + "''>" + article["headline"]["main"] + "</a></h4>";
     var artPubDate = '<p id="pub_date" class="text-center">'+ article["pub_date"].substring(0,10) + '</p>';
-    var artimg = "<img src='http://static01.nyt.com/" + article["multimedia"][0]["url"] + "' alt='article image' height='270px' width='600px'>";
+    var artimg = "<img src='https://static01.nyt.com/" + article["multimedia"][0]["url"] + "' alt='article image' height='270px' width='600px'>";
     var $fullset= $(
           "<div class='col-xs-12 col-sm-6 col-md-3' style='height: 500px'>" +
             "<div class='thumbnail'>" +
@@ -193,7 +193,7 @@ function recentPop(arr) {
     var artAbstract = ("<p id='nytText'>" + article['snippet'] + "</p>");
     var artHeadline = "<h4 class='text-center' id='nytHeadline'><a href='" + artLink + "''>" + article["headline"]["main"] + "</a></h4>";
     var artPubDate = '<p id="pub_date" class="text-center">'+ article["pub_date"].substring(0,10) + '</p>';
-    var artimg = "<img src='http://static01.nyt.com/" + article["multimedia"][0]["url"] + "' alt='article image' height='270px' width='600px'>";
+    var artimg = "<img src='https://static01.nyt.com/" + article["multimedia"][0]["url"] + "' alt='article image' height='270px' width='600px'>";
 
     var $recent= $(
           "<div class='col-xs-12 col-sm-6 col-md-3' style='height: 500px'>" +

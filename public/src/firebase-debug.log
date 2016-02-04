@@ -1,0 +1,55 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/Cellar/node/5.3.0/bin/node /Users/danielklein/.npm-packages/bin/firebase deploy
+[debug] Platform:     darwin
+[debug] Node Version: v5.3.0
+[debug] Time:         Thu Feb 04 2016 09:56:31 GMT-0700 (MST)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/godwin-project/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/godwin-project/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'godwin-project'...
+[info] 
+[info] i  deploying hosting
+[info] i  preparing public/src/ directory for upload...
+[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/firebase/godwin-project/uploads/-K9hCH7PrEpELtCR2GDX?token=XXX&fileCount=8&message= 
+[debug] <<< HTTP RESPONSE 200
+[info] ✔  8 files uploaded successfully
+[debug] >>> HTTP REQUEST POST https://deploy.firebase.com/firebase/godwin-project/releases?token=XXX
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/Cellar/node/5.3.0/bin/node /Users/danielklein/.npm-packages/bin/firebase deploy
+[debug] Platform:     darwin
+[debug] Node Version: v5.3.0
+[debug] Time:         Thu Feb 04 2016 09:58:17 GMT-0700 (MST)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/godwin-project/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/godwin-project/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'godwin-project'...
+[info] 
+[info] i  deploying hosting
+[info] i  preparing public/src/ directory for upload...
+[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/firebase/godwin-project/uploads/-K9hCg3qLiYxBNfNHRiD?token=XXX&fileCount=8&message= 
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/Cellar/node/5.3.0/bin/node /Users/danielklein/.npm-packages/bin/firebase deploy
+[debug] Platform:     darwin
+[debug] Node Version: v5.3.0
+[debug] Time:         Thu Feb 04 2016 09:58:33 GMT-0700 (MST)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/godwin-project/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/godwin-project/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'godwin-project'...
+[info] 
+[info] i  deploying hosting
+[info] i  preparing public/src/ directory for upload...
+[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/firebase/godwin-project/uploads/-K9hCk-szrZ9YoiUPok9?token=XXX&fileCount=8&message= 
+[debug] <<< HTTP RESPONSE 200

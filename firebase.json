@@ -1,6 +1,6 @@
 {
   "firebase": "godwin-project",
-  "public": "public",
+  "public": "public/src/",
   "ignore": [
     "firebase.json",
     "**/.*",
