@@ -178,13 +178,6 @@ function getNewest (arr) {
     };
     arr[0] = newest;
     console.log(newest.pub_date);
-
-     // recentYear = parseInt(arr[0].pub_date.substring(0,4))
-     // recentMonth = parseInt(arr[0].pub_date.substring(5,7))
-     // recentDay = parseInt(arr[0].pub_date.substring(8,10))
-     // console.log(recentYear);
-     //  console.log(recentMonth);
-     //  console.log(recentDay);
 }
 
 function recentPop(arr) {
