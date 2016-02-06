@@ -159,7 +159,6 @@ recentPop(arr);
     var $fullset= $(
           "<div class='col-xs-12 col-sm-6 col-md-3' style='height: 500px'>" +
             "<div class='thumbnail'>" +
-              // "<img id='target' src='http://placehold.it/600x270' alt=''>" +
               artimg +
                 "<div class='caption'>" + artHeadline + artPubDate + artAbstract +
                   "<p class='text-center' id='pols'>" +
