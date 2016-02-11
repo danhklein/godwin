@@ -15,3 +15,27 @@
   var auschiwitz = new placeNazi ('Auschiwitz', 'A Nazi concentration camp located in Poland where 1.1 million prisoners were killed.');
   //Place people/events/places in this array. Eventually should populate automatically via constructor.
   var nazi = new eventNazi ('Nazi', 'National Socialism, more commonly known as Nazism, is the ideology and practice associated with the 20th-century German Nazi Party and Nazi state as well as other far-right groups. Usually characterized as a form of fascism that incorporates scientific racism and antisemitism, Nazism developed out of the influences of Pan-Germanism, the Völkisch German nationalist movement, and the anti-communist Freikorps paramilitary groups that emerged during the Weimar Republic after German defeat in World War I.');
+
+   //*******Creates Nazi or related term***//
+  function Nazi (firstName, lastName, img, naziBio) {
+    this.nazi = firstName + " " + lastName;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.img = img;
+    //Possibly pull Bio from wikipedia as stretch
+    this.naziBio = naziBio;
+    this.naziKeyWord = lastName;
+      }
+//********Creates Nazi related event
+  function eventNazi (eventName, eventDesc) {
+    this.eventName = eventName;
+    //Possibly pull event description from wikipedia.
+    this.eventDesc = eventDesc;
+    this.naziKeyWord = eventName;
+  }
+//********Creates Nazi related place
+  function placeNazi (place, placeDesc) {
+    this.place = place;
+    this.placeDesc = placeDesc;
+    this.naziKeyWord = place;
+  }
