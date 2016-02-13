@@ -5,7 +5,7 @@ var date = new Date();
   // var currentYear = date.getFullYear();
 
 function DaysSinceHit (arr){
-  var date = new Date();
+
   var oneDay = 24*60*60*1000; // hours*minutes*seconds*millisecondsvar date = new Date();
   var currentDay = date.getDate();
   var currentMonth = date.getMonth();
