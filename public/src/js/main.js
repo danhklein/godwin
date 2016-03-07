@@ -1,3 +1,4 @@
+var naziVariables = require('./var');
 // NOTES:
 
 //MAPPING NAZIARRAY IS NOT CURRENTLY WORKING, ONLY MAPS THE FIRST ITEM IN INDEX.

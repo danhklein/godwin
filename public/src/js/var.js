@@ -39,3 +39,5 @@
     this.placeDesc = placeDesc;
     this.naziKeyWord = place;
   }
+
+  module.exports = var;
