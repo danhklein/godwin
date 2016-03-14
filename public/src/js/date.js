@@ -23,6 +23,6 @@ function DaysSinceHit (arr){
   console.log(diffDays);
   $('#counter').text(diffDays);
   if (diffDays === 0) {
-    $('#counter').css('color', 'red')
+    $('#counter').css('color', 'red');
   }
 }
