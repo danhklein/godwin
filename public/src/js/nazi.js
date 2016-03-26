@@ -1,5 +1,4 @@
-module.exports =
-{
+
 //****************GLOBAL VARIABLES****************\\
 
   var arr = [];
@@ -45,4 +44,3 @@ module.exports =
   }
 
 
-}
