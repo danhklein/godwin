@@ -131,7 +131,7 @@ $('#holocaustButton').on('click', function ()
   });
 $('#fascismButton').on('click', function ()
   { $("#first").empty();
-    makeAjax(url3);
+    makeAjax(url4);
     $('#topic').text('Fascism');
     $('#intro').text(fascism.eventDesc);
     console.log('buttontest', diffDays)
