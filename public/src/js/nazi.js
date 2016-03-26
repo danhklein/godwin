@@ -1,3 +1,5 @@
+module.exports =
+{
 //****************GLOBAL VARIABLES****************\\
 
   var arr = [];
@@ -40,4 +42,5 @@
     this.naziKeyWord = place;
   }
 
-  module.exports = var;
+
+}
