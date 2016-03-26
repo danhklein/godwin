@@ -129,6 +129,14 @@ $('#holocaustButton').on('click', function ()
    $('#topic').text('Holocaust');
    $('#intro').text(holocaust.eventDesc)
   });
+$('#fascismButton').on('click', function ()
+  { $("#first").empty();
+    makeAjax(url3);
+    $('#topic').text('Fascism');
+    $('#intro').text(fascism.eventDesc);
+    console.log('buttontest', diffDays)
+
+  });
 
 });
 
