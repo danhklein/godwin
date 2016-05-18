@@ -104,8 +104,7 @@ recentPop(arr);
             "<div class='thumbnail'>" +
               // artimg +
                 "<div class='caption'>" + artHeadline + artPubDate + artAbstract +
-                  "<p class='text-center' id='pols'>" +
-                    "<a href='plaid.com'>Plaid, Joey; </a>" + "<a href='Spotty.com'>Spotty, Eric.</a>" + "</p></div>" +"</div></div>");
+                  "</div>" +"</div></div>");
     $('#first').append($fullset);
   }
 }
@@ -135,8 +134,7 @@ function recentPop(arr) {
               "<h4 class='text-center' style='color:red'>Most Recent</h4>"+
               // artimg +
                 "<div class='caption'>" + artHeadline + artPubDate + artAbstract +
-                  "<p class='text-center' id='pols'>" +
-                    "<a href='plaid.com'>Plaid, Joey; </a>" + "<a href='Spotty.com'>Spotty, Eric.</a>" + "</p></div>" +"</div></div>");
+                  "</div>" +"</div></div>");
     $('#first').append($recent);
   }
 
